@@ -25,7 +25,7 @@ export function createMainContent() {
       }
     ];
   
-    // Create note cards
+    // Create existing note cards
     notes.forEach(note => {
       const noteEl = document.createElement("div");
       noteEl.classList.add("note");
@@ -47,11 +47,47 @@ export function createMainContent() {
       grid.appendChild(noteEl);
     });
   
-    // Add the "+" card
+    // Create + button
     const addNote = document.createElement("div");
     addNote.classList.add("note", "add-note");
     addNote.innerHTML = "<span>+</span>";
     grid.appendChild(addNote);
+  
+    // Counter for new notes
+    let newNoteCount = 0;
+    const NEW_NOTE_LIMIT = 3;
+  
+    addNote.addEventListener("click", () => {
+      if (newNoteCount >= NEW_NOTE_LIMIT) {
+        console.log("Limit reached: Only 3 new todo notes allowed.");
+        return;
+      }
+  
+      const newNote = document.createElement("div");
+      newNote.classList.add("note");
+  
+      const colors = ["yellow", "blue", "pink", "orange"];
+      const randomColor = colors[Math.floor(Math.random() * colors.length)];
+      newNote.dataset.color = randomColor;
+  
+      const title = document.createElement("h3");
+      title.textContent = "New Note";
+      title.contentEditable = "true";
+  
+      const ul = document.createElement("ul");
+      ul.innerHTML = `
+        <li>Edit me</li>
+        <li>Add more...</li>
+      `;
+      ul.contentEditable = "true";
+  
+      newNote.appendChild(title);
+      newNote.appendChild(ul);
+  
+      grid.insertBefore(newNote, addNote);
+  
+      newNoteCount++;
+    });
   
     return grid;
   }
