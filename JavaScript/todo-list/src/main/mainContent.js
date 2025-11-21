@@ -2,6 +2,7 @@ export function createMainContent() {
     const grid = document.createElement("div");
     grid.classList.add("notes-grid");
   
+  
     const notes = [
       { color: "yellow", title: "Shopping List", items: ["Milk", "Bread", "Eggs", "Butter"] },
       { color: "blue", title: "To Do", items: ["Finish report", "Email clients", "Team meeting", "Plan next sprint"] },
@@ -44,8 +45,12 @@ export function createMainContent() {
       const editables = note.querySelectorAll("[contenteditable='true']");
       editables.forEach(el => el.contentEditable = "false");
     }
+
+    const gridOne = document.createElement("div");
+    gridOne.classList.add("notes-grid");
+    document.body.appendChild(gridOne);
   
-    addNote.addEventListener("click", () => {
+    addNote.addEventListener("click", (event) => {
   
       // FIRST check limit
       if (newNoteCount >= NEW_NOTE_LIMIT) {
@@ -58,7 +63,9 @@ export function createMainContent() {
         lockNote(currentEditable);
         currentEditable = null;
       }
-  
+
+      
+
       // Create NEW note
       const newNote = document.createElement("div");
       newNote.classList.add("note");
@@ -73,14 +80,27 @@ export function createMainContent() {
   
       const ul = document.createElement("ul");
       ul.innerHTML = `
-        <li>New item</li>
-        <li>Edit me</li>
-        <button class="delete-btn">Delete</button>
+      <li>New item</li>
+      <li>Edit me</li>
       `;
       ul.contentEditable = "true";
-  
+
+
+      // create delete button
+      const deleteBtn = document.createElement("button");
+      deleteBtn.classList.add("delete-btn");
+      deleteBtn.textContent = "Delete";
+
+      grid.addEventListener("click", (event) => {
+        if (event.target.classList.contains("delete-btn")) {
+          const note = event.target.closest(".note");
+          note.remove();
+        }
+      });    
+
       newNote.appendChild(title);
       newNote.appendChild(ul);
+      newNote.appendChild(deleteBtn);
   
       grid.insertBefore(newNote, addNote);
   

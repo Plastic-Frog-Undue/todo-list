@@ -178,15 +178,20 @@ body {
   }
   
 .delete-btn {
-    background: none;
     border: none;
-    font-size: 16px;
+    background: #ff4d4d;
+    color: white;
+    font-size: 13px;
+    padding: 3px 7px;
+    margin-top: 50px;
+    border-radius: 50px;
     cursor: pointer;
-    color: #444;
-    margin-top: 75px;
+    transition: background 0.2s ease;
   }
   
 .delete-btn:hover {
-    color: rgb(237, 81, 81);
+    background: #d93636;
   }
+  
+  
   
