@@ -18,6 +18,7 @@ export function createMainContent() {
       title.textContent = note.title;
   
       const ul = document.createElement("ul");
+      
       note.items.forEach(text => {
         const li = document.createElement("li");
         li.textContent = text;
@@ -43,8 +44,7 @@ export function createMainContent() {
       const editables = note.querySelectorAll("[contenteditable='true']");
       editables.forEach(el => el.contentEditable = "false");
     }
-ç
-
+  
     addNote.addEventListener("click", () => {
   
       // FIRST check limit
@@ -75,6 +75,7 @@ export function createMainContent() {
       ul.innerHTML = `
         <li>New item</li>
         <li>Edit me</li>
+        <button class="delete-btn">Delete</button>
       `;
       ul.contentEditable = "true";
   
