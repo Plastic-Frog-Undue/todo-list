@@ -3,29 +3,12 @@ export function createMainContent() {
     grid.classList.add("notes-grid");
   
     const notes = [
-      {
-        color: "yellow",
-        title: "Shopping List",
-        items: ["Milk", "Bread", "Eggs", "Butter"]
-      },
-      {
-        color: "blue",
-        title: "To Do",
-        items: ["Finish report", "Email clients", "Team meeting", "Plan next sprint"]
-      },
-      {
-        color: "pink",
-        title: "Reminders",
-        items: ["Pay bills", "Doctor appointment", "Call mom", "Buy birthday gift"]
-      },
-      {
-        color: "orange",
-        title: "Ideas",
-        items: ["New app concept", "Marketing strategy", "Workshop topics", "Content plan"]
-      }
+      { color: "yellow", title: "Shopping List", items: ["Milk", "Bread", "Eggs", "Butter"] },
+      { color: "blue", title: "To Do", items: ["Finish report", "Email clients", "Team meeting", "Plan next sprint"] },
+      { color: "pink", title: "Reminders", items: ["Pay bills", "Doctor appointment", "Call mom", "Buy birthday gift"] },
+      { color: "orange", title: "Ideas", items: ["New app concept", "Marketing strategy", "Workshop topics", "Content plan"] }
     ];
-  
-    // Create existing note cards
+    
     notes.forEach(note => {
       const noteEl = document.createElement("div");
       noteEl.classList.add("note");
@@ -43,26 +26,40 @@ export function createMainContent() {
   
       noteEl.appendChild(title);
       noteEl.appendChild(ul);
-  
       grid.appendChild(noteEl);
     });
   
-    // Create + button
+    // CREATE ADD NOTE BUTTON
     const addNote = document.createElement("div");
     addNote.classList.add("note", "add-note");
     addNote.innerHTML = "<span>+</span>";
     grid.appendChild(addNote);
   
-    // Counter for new notes
-    let newNoteCount = 0;
+    let currentEditable = null;
+    let newNoteCount = 0;        
     const NEW_NOTE_LIMIT = 3;
   
+    function lockNote(note) {
+      const editables = note.querySelectorAll("[contenteditable='true']");
+      editables.forEach(el => el.contentEditable = "false");
+    }
+ç
+
     addNote.addEventListener("click", () => {
+  
+      // FIRST check limit
       if (newNoteCount >= NEW_NOTE_LIMIT) {
         console.log("Limit reached: Only 3 new todo notes allowed.");
         return;
       }
   
+      // Lock older editable note
+      if (currentEditable) {
+        lockNote(currentEditable);
+        currentEditable = null;
+      }
+  
+      // Create NEW note
       const newNote = document.createElement("div");
       newNote.classList.add("note");
   
@@ -76,8 +73,8 @@ export function createMainContent() {
   
       const ul = document.createElement("ul");
       ul.innerHTML = `
+        <li>New item</li>
         <li>Edit me</li>
-        <li>Add more...</li>
       `;
       ul.contentEditable = "true";
   
@@ -86,10 +83,10 @@ export function createMainContent() {
   
       grid.insertBefore(newNote, addNote);
   
-      newNoteCount++;
+      currentEditable = newNote;
+      newNoteCount++;     // <-- count new notes
     });
   
     return grid;
   }
-  
   
