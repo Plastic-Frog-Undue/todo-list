@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validation API</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <form id="myForm">
+        <label>
+          Email (required, valid email):
+          <input type="email" id="email" required>
+          <span class="error" id="emailError"></span>
+        </label>
+        <br><br>
+
+        <label>
+          Age (optional, 18-99):
+          <input type="number" id="age" min="18" max="99">
+          <span class="error" id="ageError"></span>
+        </label>
+        <br><br>
+
+        <label>
+          Country (required, country):
+          <input type="text" id="country" name="country" required>
+          <span class="error" id="countryError"></span>
+        </label>
+        <br><br>
+
+        <label>
+          Postal Code (required, postal code):
+          <input type="text" id="postal" name="postal" required>
+          <span class="error" id="postalCodeError"></span>
+        </label>
+        <br><br>
+
+        <label>
+          Password (required, password):
+          <input type="password" id="password" name="password" required>
+          <span class="error" id="passwordError"></span>
+        </label>
+        <br><br>
+
+        <label>
+          Password Confirmation (required, password confirmation):
+          <input type="password" id="passwordConfirm" name="passwordConfirm" required>
+          <span class="error" id="passwordConfirmError"></span>
+        </label>
+        <br><br>
+
+      
+        <button type="submit">Submit</button>
+      </form>
+      
+      <p id="message"></p>
+      
+      <script src="script.js"></script>
+</body>
+</html>
